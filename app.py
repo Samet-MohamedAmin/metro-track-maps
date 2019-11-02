@@ -14,8 +14,8 @@ def send_js(path):
 
 
 @app.route('/draw/<user>')
-def draw_user_map(user):
-    Config.Urls.user = user
+def draw_user_map(user:str):
+    Config.Urls.user = user.lower()
     DrawMap()
 
     return redirect('/' + Config.Paths.get_image_result())
