@@ -7,7 +7,7 @@ from draw.draw_utils import *
 
 class DrawMap:
     def __init__(self):
-        self.im = Image.open(Config.Path.image_original)
+        self.im = Image.open(Config.Paths.image_original)
         self.im_acc = self.im.copy()
         self.draw = ImageDraw.Draw(self.im)
         self.draw_acc = ImageDraw.Draw(self.im_acc)
@@ -17,7 +17,7 @@ class DrawMap:
         self.save_results()
 
     def import_data(self):
-        content = urllib.request.urlopen(Config.Path.url_coords).read()
+        content = urllib.request.urlopen(Config.Urls.get_coords()).read()
         self.item_list = json.loads(content)
 
     def draw_data(self):
@@ -26,11 +26,9 @@ class DrawMap:
             x0, y0 = convert_coords(item['lon'], item['lat'], width=w, height=h)
             acc = item['acc']
             if(acc < Config.acc_max):
-                print(x0, y0)
-                print(self.im.size)
                 draw_point(self.draw, x0, y0, size=4)
                 draw_point(self.draw_acc, x0, y0, size=acc/10)
 
     def save_results(self):
-        self.im.save(Config.Path.image_result, 'JPEG')
-        self.im_acc.save(Config.Path.image_acc_result, 'JPEG')
+        self.im.save(Config.Paths.get_image_result(), 'JPEG')
+        self.im_acc.save(Config.Paths.get_image_result(acc='_acc'), 'JPEG')

@@ -1,16 +1,27 @@
 import os
 
 class Config():
-    class Path():
-        assets = './assets'
+    class Paths():
+        assets = 'assets'
         results = '/results'
         image_original = assets + '/maps/original.jpg'
-        image_result = assets + results + '/bla.jpg'
-        image_acc_result = assets + results + '/bla_acc.jpg'
-        url_coords = 'https://metro-track.herokuapp.com/api/coords/djaj'
+
+        @staticmethod
+        def get_image_result(acc = ''):
+            """if acc is specified, then it will return the acc image"""
+            return '{}{}/{}{}.jpg'.format(Config.Paths.assets, Config.Paths.results, Config.Urls.user, acc)
 
         def __init__(self):
             os.mkdir(assets + results)
+    
+    class Urls():
+        user = 'djaj'
+        base_coords = 'https://metro-track.herokuapp.com/api/coords/'
+        base_result = ''
+
+        @staticmethod
+        def get_coords():
+            return Config.Urls.base_coords + Config.Urls.user
             
 
 
