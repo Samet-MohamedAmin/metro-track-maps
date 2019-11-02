@@ -27,7 +27,7 @@ class DrawMap:
             acc = item['acc']
             if(acc < Config.acc_max):
                 draw_point(self.draw, x0, y0, size=4)
-                draw_point(self.draw_acc, x0, y0, size=acc/10)
+                draw_point(self.draw_acc, x0, y0, size=acc)
 
     def save_results(self):
         self.im.save(Config.Paths.get_image_result(), 'JPEG')
