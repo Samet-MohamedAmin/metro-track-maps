@@ -19,12 +19,15 @@ class Config():
         @staticmethod
         def get_coords():
             return Config.Urls.base_coords + Config.Urls.user
+    
+    class Variables():
+        width = 0
+        height = 0
             
 
 
-
     coords  = (10.1615088, 36.8096696)
-    borders = (10.1834, 10.1405, 36.8207, 36.7951)
+    borders = (10.1405, 10.1834, 36.7951, 36.8207)
     acc_max = 200
 
 # create results dir that it is needed for saveing results images

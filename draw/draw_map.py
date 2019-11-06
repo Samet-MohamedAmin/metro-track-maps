@@ -3,12 +3,15 @@ import urllib.request
 import json
 from draw.config import Config
 from draw.draw_utils import *
+from draw.ref_utilities import ref_scale
 
 
 class DrawMap:
     def __init__(self):
         self.im = Image.open(Config.Paths.image_original)
         self.im_acc = self.im.copy()
+        Config.Variables.width, Config.Variables.height = self.im.size
+
         self.draw = ImageDraw.Draw(self.im)
         self.draw_acc = ImageDraw.Draw(self.im_acc)
 
@@ -22,11 +25,13 @@ class DrawMap:
 
     def draw_data(self):
         w, h = self.im.size
+
         for item in self.item_list:
-            x0, y0 = convert_coords(item['lon'], item['lat'], width=w, height=h)
+            x0, y0 = ref_scale(item['lon'], item['lat'])
             acc = item['acc']
             if(acc < Config.acc_max):
-                draw_point(self.draw, x0, y0, size=4)
+                draw_point(self.draw, x0, y0, size=10)
+                draw_lines(self.draw, x0, y0)
                 draw_point(self.draw_acc, x0, y0, size=acc)
 
     def save_results(self):
