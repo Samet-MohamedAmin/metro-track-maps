@@ -30,8 +30,7 @@ class DrawMap:
             x0, y0 = ref_scale(item['lon'], item['lat'])
             acc = item['acc']
             if(acc < Config.acc_max):
-                draw_point(self.draw, x0, y0, size=10)
-                draw_lines(self.draw, x0, y0)
+                draw_point(self.draw, x0, y0, size=6)
                 draw_point(self.draw_acc, x0, y0, size=acc)
 
     def save_results(self):
